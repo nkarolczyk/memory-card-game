@@ -1,0 +1,141 @@
+/* ustawienia ogólne dla całej strony */
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: #ffef96;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+/* kontener dla gry */
+.game-container {
+  display: none; /* początkowo ukryty kontener gry - wyświetla się ekran początkowy */
+  grid-template-columns: repeat(6, 1fr); /* układ kolumn w kontenerze */
+  gap: 20px; /* odstępy między elementami w grze */
+  max-width: 500px; /* maksymalna szerokość kontenera gry */
+  margin: 12px auto; /* automatyczne wycentrowanie z marginesem górnym i dolnym */
+  position: relative; /* pozycjonowanie */
+  z-index: 10; /* indeks warstwy po to, aby ukryć go na początku */
+}
+
+
+/* styl dla kart */
+.card {
+  opacity: 1;
+  background-color: #ffc0cb; /* tło karty */
+  border: 2px solid #ff1493; /* obramowanie karty */
+  border-radius: 25px; /* zaokrąglenie rogów karty */
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.3); /* delikatny cień karty */
+  cursor: pointer; /* kursor wskazujący na możliwość interakcji */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em; /* rozmiar tekstu na kartach */
+  transition: transform 0.5s, background-color 0.5s, border 0.5s, box-shadow 0.5s, filter 0.5s; /* animacja przejścia */
+  filter: brightness(100%); /* jasność */
+}
+
+/* interakcje z kartami */
+.card:hover {
+  filter: brightness(90%); /* zmniejszona jasność po najechaniu */
+  transform: scale(1.2); /* delikatne powiększenie przy najechaniu */
+}
+
+.card:active {
+  transform: scale(1.25); /* skalowanie karty przy aktywnym naciśnięciu */
+}
+
+/*styl dla odwróconych kart*/
+.card.flipped {
+  background-color: #ffd700; /* tło odwróconej karty */
+  transform: scale(1.2); /* powiększenie odwróconej karty */
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); 
+  filter: brightness(100%);
+}
+
+/* ukryte elementy na kartach */
+.front-face, .back-face {
+  visibility: hidden; /* ukrywanie przedniego i tylnego elementu karty */
+}
+
+/* pokazywanie zawartości odwróconych kart */
+.card.flipped .front-face, .card:not(.flipped) .back-face {
+  visibility: visible; /* pokazywanie zawartości odwróconych kart */
+}
+
+
+/* przycisk startowy */
+#startButton {
+  padding: 15px 30px;
+  font-size: 1.5em; 
+  margin-top: 30px; 
+  cursor: pointer; /* kursor wskazujący na możliwość interakcji */
+  background-color: #ff69b4; 
+  border: none; /* brak obramowania */
+  border-radius: 10px; /* zaokrąglenie rogów */
+  color: #fff; /* kolor tekstu na przycisku */
+  transition: background-color 0.3s ease; /* animacja zmiany koloru tła */
+}
+
+/* interakcje z przyciskiem startowym */
+#startButton:hover {
+  background-color: #ff1493; /* zmiana koloru tła przycisku przy najechaniu */
+  transform: scale(1.2);
+}
+
+/* kontener z informacjami (timer i punkty) */
+#infoContainer {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 10px; /* pozycja na prawo */
+  transform: translateY(-50%);
+  background-color: #87ceeb; /* tło kontenera  */
+  padding: 20px; /* wypełnienie kontenera */
+  border-radius: 15px; /* zaokrąglenie rogów kontenera */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* cień */
+}
+
+/* wyświetlanie na kontenerze informacji */
+#timerDisplay, #attemptsDisplay {
+  font-size: 1.5em; /* rozmiar tekstu  */
+  color: #333; /* kolor tekstu */
+  text-align: center; /* wycentrowanie tekstu */
+  margin-bottom: 10px; /* margines od dolnej krawędzi */
+}
+
+.start-screen {
+  display: block; /* Zmiana z flex na block */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 144, 255, 0.7); /* kolor tła ekranu startowego */
+  color: #ffffff; /* kolor tekstu */
+  font-size: 2em; /* rozmiar tekstu na ekranie startowym */
+  text-align: center; /* wycentrowanie tekstu */
+  padding-top: 10%; /* centrowanie treści bez flex, poprzez padding */
+  box-sizing: border-box; /* zapewnienie, że padding nie wpływa na wymiary */
+  z-index: 5; /* indeks warstwy */
+}
+
+/* rezponsywnośc dla małych ekranów (telefony) */
+@media (max-width: 768px) {
+  .game-container {
+    margin: 50% auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #infoContainer {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    transform: translateY(0);
+  }
+
+  .start-screen {
+    padding-top: 30vh; /* dostosowanie paddingu dla mniejszych ekranów */
+  }
+}
